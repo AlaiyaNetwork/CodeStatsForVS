@@ -13,8 +13,8 @@
     <ProjectGuid>{97C92CCD-D9BE-4B4C-9738-D0C529EF75C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VSIXProjectTest</RootNamespace>
-    <AssemblyName>VSIXProjectTest</AssemblyName>
+    <RootNamespace>CodeStatsForVS</RootNamespace>
+    <AssemblyName>CodeStatsForVS</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>

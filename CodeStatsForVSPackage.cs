@@ -19,6 +19,9 @@ using Microsoft.VisualStudio.Utilities;
 
 namespace CodeStatsForVS
 {
+    /// <summary>
+    /// Класс инициализации пакета.
+    /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
@@ -64,6 +67,12 @@ namespace CodeStatsForVS
             }
         }
 
+        /// <summary>
+        /// Инициализация данного пакета.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <param name="progress"></param>
+        /// <returns></returns>
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
