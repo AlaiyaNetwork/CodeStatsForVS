@@ -23,8 +23,8 @@ namespace CodeStatsForVS
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.CodeStatsForVSString)]
-    [ProvideOptionPage(typeof(OptionsProvider.GeneralOptions), "Test Puls", "General", 0, 0, true)]
-    [ProvideProfile(typeof(OptionsProvider.GeneralOptions), "Test Puls", "General", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionsProvider.GeneralOptions), "CodeStats", "General", 0, 0, true)]
+    [ProvideProfile(typeof(OptionsProvider.GeneralOptions), "CodeStats", "General", 0, 0, true)]
     [Export(typeof(IVsTextViewCreationListener))]
     [ContentType("text")]
     [TextViewRole(PredefinedTextViewRoles.Editable)]
@@ -59,7 +59,6 @@ namespace CodeStatsForVS
             if (hr == VSConstants.S_OK)
             {
                 commandFilter.Added = true;
-                //you'll need the next target for Exec and QueryStatus
                 if (next != null)
                     commandFilter.NextTarget = next;
             }

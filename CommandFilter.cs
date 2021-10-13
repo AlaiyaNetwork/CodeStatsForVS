@@ -38,7 +38,7 @@ namespace CodeStatsForVS
             {
                 _publisher = Task.Factory.StartNew(async () =>
                 {
-                    Thread.Sleep(10 * 1000); // Hopefully 10 seconds?
+                    Thread.Sleep(10 * 1000);
 
                     await pulse.ExecuteAsync();
                     _publisher = null;
