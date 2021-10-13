@@ -3,6 +3,8 @@
 This  Visual Studio plugin for [CodeStats](https://codestats.net/), written in and tested with VS2022. 
 But It should be compatible with VS 2015 and above. [Not testing yet]
 
+This repo also uses the best parts of this repos: [mastorm/CodeStats.Client](https://github.com/mastorm/CodeStats.Client).
+
 ## How to configure
 
 1. Create new account on [CodeStats](https://codestats.net/)
