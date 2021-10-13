@@ -7,6 +7,6 @@ This repo also uses the best parts of this repos: [mastorm/CodeStats.Client](htt
 ## How to configure
 
 1. Create new account on [CodeStats](https://codestats.net/)
-2. Install the plugin from the marketplace
+2. Install this plugin from the [marketplace](https://marketplace.visualstudio.com/items?itemName=ScratchCat.CodeStatsForVS)
 3. Open the Visual Studio Settings
 4. Under CodeStats, change your MachineKey to the Key that you got from CodeStats.
