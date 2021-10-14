@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 
 using Newtonsoft.Json;
 
-namespace CodeStatsForVS.Pulse
+namespace CodeStatsForVS
 {
     /// <summary>
     /// Класс API для работы с CodeStats.
@@ -13,7 +13,7 @@ namespace CodeStatsForVS.Pulse
     public class Pulse
     {
         /// <summary>
-        /// Временная метка (должна быть не старте недели).
+        /// Временная метка (должна быть не старше недели).
         /// </summary>
         [JsonProperty("coded_at")]
         public DateTime CodedAt { get; set; } = DateTime.Now;
@@ -35,7 +35,7 @@ namespace CodeStatsForVS.Pulse
         public Pulse()
         {
             if (!_client.DefaultRequestHeaders.Contains("User-Agent"))
-                _client.DefaultRequestHeaders.Add("User-Agent", "CodeStatsForVS/1.0");
+                _client.DefaultRequestHeaders.Add("User-Agent", "CodeStatsForVS/1.2");
         }
 
         /// <summary>
@@ -46,15 +46,12 @@ namespace CodeStatsForVS.Pulse
         /// </param>
         public void IncrementExperience(string language)
         {
-            var result = Experiences.FirstOrDefault(pulseXp => pulseXp.Language == language);
+            var result = Experiences
+                .FirstOrDefault(pulseXp => pulseXp.Language == language);
 
             if (result == null)
             {
-                Experiences.Add(new PulseXp
-                {
-                    Language = language,
-                    Xp = 1,
-                });
+                Experiences.Add(new PulseXp(language));
                 return;
             }
 

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CodeStatsForVS.f532d7a0-94db-4494-9a22-b29b8c9c0a62" Version="1.1" Language="ru-RU" Publisher="Andrey Belov" />
-        <DisplayName>CodeStatsForVS2022</DisplayName>
+        <Identity Id="CodeStatsForVS.f532d7a0-94db-4494-9a22-b29b8c9c0a62" Version="1.2" Language="ru-RU" Publisher="Andrey Belov" />
+        <DisplayName>CodeStats (For VS2022 Preview)</DisplayName>
         <Description xml:space="preserve">A Visual Studio 2022 Plugin for CodeStats.</Description>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Icon.png</PreviewImage>

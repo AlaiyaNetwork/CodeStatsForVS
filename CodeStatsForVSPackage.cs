@@ -41,6 +41,10 @@ namespace CodeStatsForVS
         [Import(typeof(IVsEditorAdaptersFactoryService))]
         internal IVsEditorAdaptersFactoryService editorFactory = null;
 
+        /// <summary>
+        /// Вызывается, когда адаптер <see cref="IVsTextView"/> был создан и инициализирован.
+        /// </summary>
+        /// <param name="textViewAdapter">Недавно созданный и инициализированный адаптер текстового представления.</param>
         public void VsTextViewCreated(IVsTextView textViewAdapter)
         {
             IWpfTextView textView = editorFactory.GetWpfTextView(textViewAdapter);
@@ -50,6 +54,11 @@ namespace CodeStatsForVS
             AddCommandFilter(textViewAdapter, new CommandFilter(textView));
         }
 
+        /// <summary>
+        /// Добавляет <see cref="CommandFilter"/> к <see cref="IVsTextView"/>.
+        /// </summary>
+        /// <param name="viewAdapter">Ссылка на <see cref="IVsTextView"/>.</param>
+        /// <param name="commandFilter">Ссылка на <see cref="CommandFilter"/>.</param>
         private void AddCommandFilter(IVsTextView viewAdapter, CommandFilter commandFilter)
         {
             if (commandFilter.Added)
@@ -62,6 +71,7 @@ namespace CodeStatsForVS
             if (hr == VSConstants.S_OK)
             {
                 commandFilter.Added = true;
+
                 if (next != null)
                     commandFilter.NextTarget = next;
             }
