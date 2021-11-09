@@ -42,7 +42,7 @@ namespace CodeStatsForVS
         public PulseXp(string language, int xp)
         {
             Language = language;
-            Xp = Xp;
+            Xp = xp;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 using Newtonsoft.Json;
 
@@ -72,8 +71,8 @@ namespace CodeStatsForVS
             if (apiKey == "")
                 return;
 
-            var requestContent = new StringContent(JsonConvert.SerializeObject(this, Formatting.Indented));
-            requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            StringContent requestContent = new(JsonConvert.SerializeObject(this, Formatting.Indented));
+            requestContent.Headers.ContentType = new("application/json");
             requestContent.Headers.Add("X-API-Token", apiKey);
 
             var response = await _client.PostAsync(pluseApiUrl, requestContent);
