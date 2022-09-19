@@ -1,27 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
+
+using CodeStatsForVS.API.Models;
 
 using Newtonsoft.Json;
 
-namespace CodeStatsForVS
+namespace CodeStatsForVS.API.Endpoint
 {
     /// <summary>
-    /// Класс API для работы с CodeStats.
+    /// API по работе с импульсами на сервер.
     /// </summary>
     public class Pulse
     {
         /// <summary>
-        /// Временная метка (должна быть не старше недели).
+        /// Данные текущего импульса.
         /// </summary>
-        [JsonProperty("coded_at")]
-        public DateTime CodedAt { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// Списки <see cref="PulseXp"/> на отправку.
-        /// </summary>
-        [JsonProperty("xps")]
-        public List<PulseXp> Experiences { get; set; } = new();
+        private Models.Pulse _pulse = new();
 
         /// <summary>
         /// Экземпляр <see cref="HttpClient"/>.
@@ -34,7 +28,9 @@ namespace CodeStatsForVS
         public Pulse()
         {
             if (!_client.DefaultRequestHeaders.Contains("User-Agent"))
+            {
                 _client.DefaultRequestHeaders.Add("User-Agent", "CodeStatsForVS/1.2");
+            }             
         }
 
         /// <summary>
@@ -45,12 +41,12 @@ namespace CodeStatsForVS
         /// </param>
         public void IncrementExperience(string language)
         {
-            var result = Experiences
+            var result = _pulse.Experiences
                 .FirstOrDefault(pulseXp => pulseXp.Language == language);
 
             if (result == null)
             {
-                Experiences.Add(new PulseXp(language));
+                _pulse.Experiences.Add(new PulseExp(language));
                 return;
             }
 
@@ -63,21 +59,27 @@ namespace CodeStatsForVS
         /// <returns></returns>
         public async Task ExecuteAsync()
         {
-            var options = await General.GetLiveInstanceAsync();
+            try
+            {
+                var options = await General.GetLiveInstanceAsync();
 
-            var apiKey = options.MachineKey;
-            var pluseApiUrl = options.PulseApiUrl;
+                if (string.IsNullOrEmpty(options.MachineKey) || string.IsNullOrEmpty(options.PulseApiUrl))
+                {
+                    return;
+                }
 
-            if (apiKey == "")
-                return;
+                StringContent requestContent = new(JsonConvert.SerializeObject(this, Formatting.Indented));
+                requestContent.Headers.ContentType = new("application/json");
+                requestContent.Headers.Add("X-API-Token", options.MachineKey);
 
-            StringContent requestContent = new(JsonConvert.SerializeObject(this, Formatting.Indented));
-            requestContent.Headers.ContentType = new("application/json");
-            requestContent.Headers.Add("X-API-Token", apiKey);
-
-            var response = await _client.PostAsync(pluseApiUrl, requestContent);
-            await response.Content.ReadAsStringAsync();
-            Experiences.Clear();
+                var response = await _client.PostAsync(options.PulseApiUrl, requestContent);
+                await response.Content.ReadAsStringAsync();
+                _pulse = new();
+            }
+            catch (Exception ex)
+            {
+                await ex.LogAsync();
+            }     
         }
     }
 }

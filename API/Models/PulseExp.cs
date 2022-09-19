@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace CodeStatsForVS
+namespace CodeStatsForVS.API.Models
 {
     /// <summary>
-    /// Класс, описывающий структуру данных для CodeStats.
+    /// Класс, описывающий структуру данных набранного опыта для конкретного языка.
     /// </summary>
-    public class PulseXp
+    public class PulseExp
     {
         /// <summary>
         /// Название языка.
@@ -22,13 +22,13 @@ namespace CodeStatsForVS
         /// <summary>
         /// Конструктор по умолчанию.
         /// </summary>
-        public PulseXp() { }
+        public PulseExp() { }
 
         /// <summary>
         /// Конструктор, инициализирующий новый язык, при первом использовании.
         /// </summary>
         /// <param name="language">Название языка.</param>
-        public PulseXp(string language)
+        public PulseExp(string language)
         {
             Language = language;
             Xp = 1;
@@ -39,7 +39,7 @@ namespace CodeStatsForVS
         /// </summary>
         /// <param name="language">Название языка.</param>
         /// <param name="xp">Очки опыта.</param>
-        public PulseXp(string language, int xp)
+        public PulseExp(string language, int xp)
         {
             Language = language;
             Xp = xp;
