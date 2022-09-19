@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 
+using CodeStatsForVS.API.Endpoint;
+
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Text.Editor;
@@ -73,6 +75,8 @@ namespace CodeStatsForVS
         /// </returns>
         int IOleCommandTarget.Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (nCmdID != (uint)VSConstants.VSStd2KCmdID.TYPECHAR && nCmdID != (uint)VSConstants.VSStd2KCmdID.BACKSPACE)
                 return NextTarget.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
 
@@ -113,7 +117,10 @@ namespace CodeStatsForVS
         /// <see cref="VSConstants.E_FAIL" />, <see cref="VSConstants.E_UNEXPECTED" />, 
         /// <see cref="VSConstants.E_POINTER" />, <see langword="OLECMDERR_E_UNKNOWNGROUP" />.
         /// </returns>
-        int IOleCommandTarget.QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText) 
-            => NextTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+        int IOleCommandTarget.QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            return NextTarget.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
+        }
     }
 }
